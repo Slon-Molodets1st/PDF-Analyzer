@@ -1,9 +1,9 @@
 """
-Contract Analyzer - приложение для анализа контрактов с использованием AI
+PDF Analyzer - приложение для анализа PDF-файлов с использованием AI
 """
 
 __version__ = "1.0.0"
-__author__ = "Your Name"
+__author__ = "molodets1st"
 
 from src.core.document_processor import process_pdf
 from src.core.llm_config import get_llm, get_embeddings
