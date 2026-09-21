@@ -14,7 +14,6 @@ def get_embeddings(model: str = "all-minilm", base_url: str = "http://localhost:
     Returns:
         OllamaEmbeddings: объект эмбеддингов
     """
-    # Можно переопределить через переменные окружения
     model = os.getenv("EMBEDDING_MODEL", model)
     base_url = os.getenv("OLLAMA_BASE_URL", base_url)
     
