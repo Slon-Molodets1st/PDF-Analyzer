@@ -1,6 +1,6 @@
 # Analiz-Chatbot
 
-Приложение для анализа контрактов с использованием AI (LangChain, LangGraph, Ollama)
+Приложение для анализа pdf-документов с использованием AI (LangChain, LangGraph, Ollama)
 
 ## 🚀 Возможности
 
