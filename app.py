@@ -117,22 +117,18 @@ if uploaded_file:
             if tmp_path:
                 cleanup_temp_file(tmp_path)
     
-    # ============= Вкладка 1: Чат =============
+ 
     render_qa_tab(tab1)
-    
-    # ============= Вкладка 2: Извлечение сущностей =============
+ 
     render_extraction_tab(tab2)
     
-    # ============= Вкладка 3: Поиск противоречий =============
     render_contradiction_tab(tab3)
-    
-    # ============= Вкладка 4: Агент =============
+  
     render_agent_tab(tab4)
 
 else:
     render_info_section()
 
-# ============ Функции рендеринга ============
 
 def render_qa_tab(tab):
     """Рендерит вкладку чата"""
