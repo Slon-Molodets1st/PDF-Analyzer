@@ -12,14 +12,11 @@ def process_pdf(uploaded_file) -> Tuple[str, List[Document], str, List[Document]
         tmp.write(uploaded_file.getvalue())
         tmp_path = tmp.name
     
-    # Загружаем PDF
     loader = PyPDFLoader(tmp_path)
     docs = loader.load()
     
-    # Собираем полный текст
     full_text = "\n\n".join([doc.page_content for doc in docs])
     
-    # Создаем сплиттеры
     chat_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000, 
         chunk_overlap=200
