@@ -20,12 +20,11 @@ async def stream_agent_response(agent, query: str):
             yield {"type": "error", "content": "❌ Агент не инициализирован"}
             return
         
-        # Запускаем агента с astream_events
+        # Запуск агента с astream_events
         async for event in agent.astream_events(
             {"messages": [HumanMessage(content=query)]},
             version="v1"
         ):
-            # Отслеживаем различные типы событий
             if event["event"] == "on_chat_model_stream":
                 # Стриминг токенов
                 content = event["data"]["chunk"].content
@@ -54,11 +53,9 @@ async def stream_agent_response(agent, query: str):
                 }
             
             elif event["event"] == "on_chain_start" and "agent" in event.get("name", ""):
-                # Агент начинает "думать"
                 yield {"type": "thinking", "content": "🤔 Агент анализирует ваш вопрос..."}
             
             elif event["event"] == "on_chain_end" and event.get("name") == "agent":
-                # Агент закончил работу
                 yield {"type": "done", "content": "✅ Агент завершил работу"}
     
     except Exception as e:
@@ -89,13 +86,13 @@ def run_agent_with_progress(query: str, agent, progress_placeholder, status_plac
         status_placeholder.info("🚀 Запуск агента...")
         progress_placeholder.progress(0.1)
         
-        # Создаем контейнер для стриминга
+        # Создание контейнер для стриминга
         streaming_container = st.empty()
         full_response = ""
         tool_calls = []
         tool_results = []
         
-        # Запускаем асинхронный стриминг
+        # Запуск асинхронного стриминга
         async def run_stream():
             nonlocal full_response, tool_calls, tool_results
             async for event in stream_agent_response(agent, query):
@@ -135,7 +132,6 @@ def run_agent_with_progress(query: str, agent, progress_placeholder, status_plac
             
             return {"success": True}
         
-        # Запускаем асинхронную функцию
         result = asyncio.run(run_stream())
         
         if result and "error" in result:
@@ -145,10 +141,8 @@ def run_agent_with_progress(query: str, agent, progress_placeholder, status_plac
                 "tool_results": tool_results
             }
         
-        # Показываем финальный ответ
         streaming_container.markdown(f"**📝 Ответ агента:**\n\n{full_response}")
         
-        # Показываем использованные инструменты
         with response_placeholder:
             if tool_calls:
                 st.subheader("🔧 Использованные инструменты:")
